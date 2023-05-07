@@ -40,7 +40,7 @@ If you don't have Oracle Virtualbox installed, access this [link](https://www.vi
 
 ### **User custom settings**
 
-Before spinning this lab, download the Alma Linux 8 box:
+Before spinning up this lab, download the Alma Linux 8 box:
 
 ```
 vagrant box add almalinux/8 --force
