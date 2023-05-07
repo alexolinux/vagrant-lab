@@ -18,10 +18,12 @@ Optionally for this project, we have chosen to use [Alma Linux 8](https://app.va
 1. Check if vagrant is installed.
 
 ```bash
-  $ vagrant version
-  
+  vagrant version
+```
+
+```
+# Output example:
   Installed Version: 2.3.4
   Latest Version: 2.3.4
 ```
-
 
