@@ -70,7 +70,7 @@ Example:
 - **username**:  *It will capture your current host user and create it on the VMs.*
 - **interface**: *Interface name of your host for bridge network configuration.*
 - **range**: *Ips range based on your local network to create machines.*
-- **netmask**: *Your network configuration.*
+- **netmask**: *Check your host network configurations.*
 - **gateway**: *Default gateway of your local network.*
 - **pubkey**: *Your public ssh key that will be added to authorized_keys.*
 - **memory**: *VMs memory*
