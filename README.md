@@ -37,34 +37,37 @@ If you don't have Oracle Virtualbox installed, access this [link](https://www.vi
 - For provisioning, the same user used on the host will be created, adding it with sudo permissions.
 - In this project, a mount point is being created between the hypervisor and the VMS (`/share/nfs`). Make sure you have an existing mount point on your local machine.
 - Configure shell provisioning according to your needs.
+- In order to make this environment shareable, the implementation of variables using the [**vagrant-env**](https://github.com/gosuri/vagrant-env) **plugin** is being used:
 
-### **User custom settings**
-
-Before spinning up this lab, download the Alma Linux 8 box:
-
-```
-vagrant box add almalinux/8 --force
+```sh
+cd AlmaLinux8
+vagrant plugin install vagrant-env
 ```
 
-Edit the `Vagrantfile`. It is necessary to fill in the variables section according to your local environment:
+This plugin enables loading variables from `.env` file where we are defining the following parameters:
 
-Example:
+```yaml
+# Create `.env` in the same path where Vagrantfile is located.
+
+vim .env
+
+# `.env` Required arguments:
+PUBKEY=''
+IFACE=''
+RANGE=''
+NETMASK=''
+GATEWAY=''
+```
+
+**`.env`** (example):
 
 ```yaml
   # Variables Environment
-  username = ENV['USER']  
-  interface = "eth0"
-  range = "192.168.10."
-  netmask = "255.255.255.0"
-  gateway = "192.168.10.254"
-  pubkey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDQkZa2XCHDdwjL84GfPkC/32j6cX+mlukc0DVXPyDGVwpGiOxK4kUCPkmM6aLHJF6gI3US4TN/37TQSWFtWTVoPFXqjMjhB0keD43p7RU7JSe4a1EuaVrw6IehsL7At25zdpQIk5cdFC/4x4OEEJAjbET4d+GxMHl+g0WxUKUgOAGQXZO9ZYN3b3eFUd84vcmV3TicYOofigjHpcF9vaG84WqYiPtC29mjlRQ1s0hEQJfdWPpMzgEQ9a76KOGXuKqYfQJj/JIav4u5PUNBBdKfMZSoNmmzhMAEbmxCBDumI9gM8z5pzHh+O8QPv/+N4QyNWXSUfLIFXI8onCzQLv1fSqQz3sodLYrM/rOgne0Ok2AykhUYNw+ee546eH5tHWAFQ8Kaeb498o3rGaE19KFCSyWEcXROUOyDSXWvnUzWWp++qhG2SSe+VZu6KCT8pJNcA4kaidrg9VN7Tc4HzDAi2IknMUB40Waua/TN5Gvns8xRSPid4eZeqh2augOfVkXVLKFtUNj31vcj4F7PrXZv9i52xbrt7Hz+bsc/ioGe+7r2clkYX2FqMdVVfp5G6nUF4zim1Ca/q+ITMQfgUKc9vgbfebMjnxZqh+ItyBW8dhzHtJNgp3V7HqfdwTwVl/KWD4KB6mB8CFaQHnC2m396bS8EVGSPRZn1amvxEXpsKw=="
-
-  # Variables for VM Settings
-  memory = "1024"
-  cpu = "1"
-
-  # Number of VMs Lab to create
-  num_vms = 3
+  PUBKEY='ssh-rsa AAAAC3NzaC1lZDI1NTE5BBADE6VZXR7....'
+  IFACE='eth0'
+  RANGE='192.168.0.'
+  NETMASK='255.255.255.0'
+  GATEWAY='192.168.0.1'
 ```
 
 - **username**:  *It will capture your current host user and create it on the VMs.*
@@ -73,14 +76,50 @@ Example:
 - **netmask**: *Check your host network configurations.*
 - **gateway**: *Default gateway of your local network.*
 - **pubkey**: *Your public ssh key string that will be added to authorized_keys.*
+
+*Note: Inside of `Vagrantfile` it is also possible to customize the following extra arguments:
+
+- **hostname**: Set to `lab`. Change to desired Hostname index.
+- **ip range index**: Set to `10`. Change to desired IP index.
+- **synced_folder**: Change to your desired source/destination folders or omment if you don't want to use it (*Optional*).
 - **memory**: *VMs memory*
 - **cpu**: *VMs CPU*
 - **num_vms**:  *Number of VMs to be created.*
+
+## **Let's running!**
+
+Before spinning up this lab, download the Alma Linux 8 box:
+
+```sh
+vagrant box add almalinux/8 --force
+```
+
+**Example:**
+```sh
+vagrant box add almalinux/8 --force
+==> box: Loading metadata for box 'almalinux/8'
+    box: URL: https://vagrantcloud.com/almalinux/8
+This box can work with multiple providers! The providers that it
+can work with are listed below. Please review the list and choose
+the provider you will be working with.
+
+1) hyperv
+2) libvirt
+3) virtualbox
+4) vmware_desktop
+
+Enter your choice: 3
+==> box: Adding box 'almalinux/8' (v8.7.20230228) for provider: virtualbox
+    box: Downloading: https://vagrantcloud.com/almalinux/boxes/8/versions/8.7.20230228/providers/virtualbox.box
+    box: Calculating and comparing box checksum...
+==> box: Successfully added box 'almalinux/8' (v8.7.20230228) for 'virtualbox'!
+```
 
 After configuring the `Vagrantfile`, go to the directory where it is located and run:
 
 ```bash
 cd AlmaLinux8
+source .env
 vagrant up
 ```
 

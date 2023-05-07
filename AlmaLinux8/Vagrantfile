@@ -1,26 +1,27 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "almalinux/8"
+  config.env.enable
 
   # Variables Environment
   username = ENV['USER']
-  pubkey = ""
-  interface = ""
-  range = ""
-  netmask = ""
-  gateway = ""
+  pubkey = ENV['PUBKEY']
+  interface = ENV['IFACE']
+  range = ENV['RANGE']
+  netmask = ENV['NETMASK']
+  gateway = ENV['GATEWAY']
 
   # Variables for VM Settings
   memory = "1024"
   cpu = "1"
 
   # Number of VMs Lab to create
-  num_vms = 3
+  num_vms = 2
 
   # Loop through the count index
   (1..num_vms).each do |i|
     config.vm.define "lab#{i}" do |vm|
       vm.vm.hostname = "lab#{i}"
-      vm.vm.network "public_network", bridge: "#{interface}", ip: "#{range}#{50 + i}", netmask: "#{netmask}"
+      vm.vm.network "public_network", bridge: "#{interface}", ip: "#{range}#{10 + i}", netmask: "#{netmask}"
     
       vm.vm.provider "virtualbox" do |vm|
         # VM System Resources
@@ -29,18 +30,18 @@ Vagrant.configure("2") do |config|
         vm.cpus = "#{cpu}"
       end
 
-      vm.vm.synced_folder "/share/nfs", "/share/nfs"
+      vm.vm.synced_folder "/home/#{username}/Public", "/sharing"
 
       vm.vm.provision "shell", inline: <<-SHELL
         # Adding Public DNS Resolvers
         echo "nameserver 1.1.1.1" | sudo tee -a /etc/resolv.conf
         echo "nameserver 8.8.8.8" | sudo tee -a /etc/resolv.conf
         echo "nameserver 8.8.4.4" | sudo tee -a /etc/resolv.conf
-        # Filling /etc/hosts
-        echo "192.168.0.10 hypervisor master" | sudo tee -a /etc/hosts
+        # Filling /etc/hosts (Change '192.168.0.5' for your IP Host...)
+        echo "192.168.0.5 host master" | sudo tee -a /etc/hosts
         # Configure Default Network Gateway
         ip route add default via "#{gateway}"
-        # Create DevOps 'sudo' User plus accessing mechanism/permissions
+        # Create Sysadmin/DevOps 'sudo' User plus accessing mechanism/permissions
         useradd -m -s /bin/bash -G vagrant "#{username}"
         echo "#{username}     ALL=(ALL)     NOPASSWD: ALL" | sudo tee -a /etc/sudoers.d/vagrant
         mkdir -p "/home/#{username}/.ssh"
@@ -48,12 +49,9 @@ Vagrant.configure("2") do |config|
         echo "#{pubkey}" | tee "/home/#{username}/.ssh/authorized_keys"
         chmod 600 "/home/#{username}/.ssh/authorized_keys"
         chown -R "#{username}:#{username}" "/home/#{username}/.ssh"
-        hostnam
         # Extra packages
         dnf -y install net-tools jq
       SHELL
-
-    #END of config.vm.define line below
     end
   end
 end
