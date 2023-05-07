@@ -67,7 +67,7 @@ Example:
   num_vms = 3
 ```
 
-- **username**:  *It will capture your user in use and create it on the VMs.*
+- **username**:  *It will capture your current host user and create it on the VMs.*
 - **interface**: *Interface name of your host for bridge network configuration.*
 - **range**: *Ips range based on your local network to create machines.*
 - **netmask**: *Your network configuration.*
