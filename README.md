@@ -46,7 +46,7 @@ Before spinning this lab, download the Alma Linux 8 box:
 vagrant box add almalinux/8 --force
 ```
 
-After that, edit the `Vagrantfile`. It is necessary to fill in the variables section according to your local environment:
+Edit the `Vagrantfile`. It is necessary to fill in the variables section according to your local environment:
 
 Example:
 
@@ -76,6 +76,15 @@ Example:
 - **memory**: *VMs memory*
 - **cpu**: *VMs CPU*
 - **num_vms**:  *Number of VMs to be created.*
+
+After configuring the `Vagrantfile`, go to the directory where it is located and run:
+
+```bash
+cd AlmaLinux8
+vagrant up
+```
+
+That's it. You will have an environment according to your settings. Enjoy!
 
 ---
 License
