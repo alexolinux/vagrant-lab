@@ -26,7 +26,7 @@ First of all, it is required the [vagrant binary package](https://developer.hash
 
 - **Oracle Virtualbox**
 
-If you don't have Oracle Virtualbox installed, access this [link](https://www.virtualbox.org/wiki/Downloads) to install Oracle Virtualbox on your operating system.
+If you don't have Oracle Virtualbox installed, access this [link](https://www.virtualbox.org/wiki/Downloads) to install Virtualbox on your operating system.
 
 ## **Setting up this Project**
 
