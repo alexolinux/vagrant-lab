@@ -1,3 +1,8 @@
+# -*- mode: ruby -*-
+#
+# Vagrantfile - One development machine to rule them all.
+#
+
 Vagrant.configure("2") do |config|
   config.vm.box = "almalinux/8"
   config.env.enable
@@ -6,26 +11,34 @@ Vagrant.configure("2") do |config|
   username = ENV['USER']
   pubkey = ENV['PUBKEY']
   interface = ENV['IFACE']
-  range = ENV['RANGE']
+  base_ip = ENV['BASEIP']
   netmask = ENV['NETMASK']
   gateway = ENV['GATEWAY']
+  prefix = ENV['PREFIX']
+  memory = ENV['MEMORY']
+  cpu = ENV['CPU']
+  group = ENV['GROUP']
 
   # Variables for VM Settings
-  memory = "1024"
-  cpu = "1"
+  memory = "#{memory}"
+  cpu = "#{cpu}"
 
   # Number of VMs Lab to create
-  num_vms = 2
+  num_vms = 1
 
   # Loop through the count index
   (1..num_vms).each do |i|
-    config.vm.define "lab#{i}" do |vm|
-      vm.vm.hostname = "lab#{i}"
-      vm.vm.network "public_network", bridge: "#{interface}", ip: "#{range}#{10 + i}", netmask: "#{netmask}"
+    ip_parts = base_ip.split('.')
+    ip_parts[3] = (ip_parts[3].to_i + i).to_s
+    ip = ip_parts.join('.')
+    
+    config.vm.define "#{prefix}#{i}" do |vm|
+      vm.vm.hostname = "#{prefix}#{i}"
+      vm.vm.network "public_network", bridge: "#{interface}", ip: "#{ip}", netmask: "#{netmask}"
     
       vm.vm.provider "virtualbox" do |vm|
         # VM System Resources
-        vm.customize ["modifyvm", :id, "--vram", "16", "--groups", "/MyLabs", "--audio", "none"]
+        vm.customize ["modifyvm", :id, "--vram", "16", "--groups", "/#{group}", "--audio", "none"]
         vm.memory = "#{memory}"
         vm.cpus = "#{cpu}"
       end
