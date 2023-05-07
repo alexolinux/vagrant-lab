@@ -72,7 +72,7 @@ Example:
 - **range**: *Ips range based on your local network to create machines.*
 - **netmask**: *Check your host network configurations.*
 - **gateway**: *Default gateway of your local network.*
-- **pubkey**: *Your public ssh key that will be added to authorized_keys.*
+- **pubkey**: *Your public ssh key string that will be added to authorized_keys.*
 - **memory**: *VMs memory*
 - **cpu**: *VMs CPU*
 - **num_vms**:  *Number of VMs to be created.*
