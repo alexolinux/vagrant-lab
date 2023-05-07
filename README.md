@@ -76,3 +76,16 @@ Example:
 - **memory**: *VMs memory*
 - **cpu**: *VMs CPU*
 - **num_vms**:  *Number of VMs to be created.*
+
+---
+License
+-------
+
+GPL-3.0 License
+
+Author Information
+------------------
+
+Alex Mendes
+
+https://www.linkedin.com/in/mendesalex/
