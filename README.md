@@ -60,7 +60,7 @@ This plugin enables loading variables from **`.env`** file where we are defining
 |***Note**: Inside of `Vagrantfile` it is also possible to customize the following extra arguments:
 - **num_vms**:  *Number of VMs to be created.*
 - **username**: *It will capture 'automatically' from your current host user and will be created it on the VMs.*
-- **synced_folder**: *Change to your desired source/destination folders or omment if you don't want to use it (optional)*.
+- **synced_folder**: *Change to your desired source/destination folders or comment if you don't want to use it (optional)*.
 
 **`.env`** (example):
 
