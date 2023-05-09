@@ -33,10 +33,10 @@ If you don't have Oracle Virtualbox installed, access this [link](https://www.vi
 
 #### **Considerations**
 
-- Optionally for this project, we have chosen to use [Alma Linux 8](https://app.vagrantup.com/almalinux/boxes/8).
+- Optionally for this project, I have chosen to use [Alma Linux 8](https://app.vagrantup.com/almalinux/boxes/8).
 - The network is configured for use in bridge mode.
 - For provisioning, the same user used on the host will be created, adding it with sudo permissions.
-- In this project, a mount point is being created between the hypervisor and the VMS). *It is optional (fell free to comment this line if you don't want to use it)*.
+- In this project, a mount point is being created between the Host and the VMS). *It is optional (fell free to comment this line if you don't want to use it)*.
 - Configure shell provisioning according to your needs.
 - In order to make this environment shareable, the implementation of variables using the [**vagrant-env**](https://github.com/gosuri/vagrant-env) **plugin** is being used:
 
