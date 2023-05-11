@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
   cpu = "#{cpu}"
 
   # Number of VMs Lab to create
-  num_vms = 2
+  num_vms = 1
 
   # Loop through the count index
   (1..num_vms).each do |i|
@@ -50,8 +50,6 @@ Vagrant.configure("2") do |config|
         echo "nameserver 1.1.1.1" | sudo tee -a /etc/resolv.conf
         echo "nameserver 8.8.8.8" | sudo tee -a /etc/resolv.conf
         echo "nameserver 8.8.4.4" | sudo tee -a /etc/resolv.conf
-        # Filling /etc/hosts (Change '192.168.0.5' for your IP Host...)
-        echo "192.168.0.5 host master" | sudo tee -a /etc/hosts
         # Configure Default Network Gateway
         ip route add default via "#{gateway}"
         # Create Sysadmin/DevOps 'sudo' User plus accessing mechanism/permissions
@@ -62,12 +60,11 @@ Vagrant.configure("2") do |config|
         echo "#{pubkey}" | tee "/home/#{username}/.ssh/authorized_keys"
         chmod 600 "/home/#{username}/.ssh/authorized_keys"
         chown -R "#{username}:#{username}" "/home/#{username}/.ssh"
-        # Extra packages
-        dnf -y install net-tools jq
       SHELL
 
       # In case you want to install additional repositories, uncomment the line below
       #vm.vm.provision "shell", path: "scripts/repo.sh"
+      #vm.vm.provision "shell", path: "scripts/provisioner.sh"
     end
   end
 end
