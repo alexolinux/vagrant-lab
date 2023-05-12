@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
   cpu = "#{cpu}"
 
   # Number of VMs Lab to create
-  num_vms = 1
+  num_vms = 3
 
   # Loop through the count index
   (1..num_vms).each do |i|

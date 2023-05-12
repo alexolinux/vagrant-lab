@@ -1,7 +1,6 @@
 #!/bin/bash
 
-HOSTIP='192.168.0.7'
-HOSTNAME='host'
+HOSTIP=$HOSTIP
 HOSTALIAS='master'
 
 echo -e "1. Appending Hosts\n"

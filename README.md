@@ -77,6 +77,7 @@ PREFIX='lab'
 MEMORY='1024'
 CPU='1'
 GROUP='MyLabs'
+HOSTIP='192.168.0.9'
 ```
 
 ```shell
@@ -95,6 +96,7 @@ vagrant-env enables loading variables from **`.env`** file where we are defining
 - MEMORY (**memory**): *VMs memory*
 - CPU (**cpu**): *VMs CPU*
 - GROUP (**group**): *Grouping of VMs*
+- HOSTIP: *IP address of your Local Machine (useful if necessary communication between host x vms)*
 
 > *You might copy/paste from `env_template` to `.env` editing your custom values.* 
 
