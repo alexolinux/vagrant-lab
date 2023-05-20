@@ -95,7 +95,7 @@ vagrant-env enables loading variables from **`.env`** file where we are defining
 - PREFIX (**prefix**): Change it to desired hostname index.
 - MEMORY (**memory**): *VMs memory*
 - CPU (**cpu**): *VMs CPU*
-- GROUP (**group**): *Grouping of VMs*
+- GROUP (**group**): *Grouping of VMs (If this group already exists in Virtualbox)*
 
 > *You might copy/paste from `env_template` to `.env` editing your custom values.* 
 
@@ -104,6 +104,12 @@ In addition to the existing parameters in the `.env`, there are also the followi
 - **username**: *It will capture 'automatically' from your current host user and will be created it on the VMs.*
 - **synced_folder**: *Change to your desired source/destination folders or comment if you don't want to use it (optional)*.
   * *If you want to use mountpoint with `sync_folder` make sure the directory exists on your host/workstation.*
+
+> **Note: If you want to use `provisioner.sh` script, you need to specify your Hostname and IP Address of your workstation:
+```shell
+HOSTIP=<YourIpHere>
+HOSTALIAS='YourHostnameHere'
+```
 
 ## **Let's running!**
 
@@ -204,11 +210,9 @@ vagrant destroy
 ```
 
 ```shell
-vagrant destroy
-
-    lab1: Are you sure you want to destroy the 'lab1' VM? [y/N] y
-==> lab1: Forcing shutdown of VM...
-==> lab1: Destroying VM and associated drives...
+    vm1: Are you sure you want to destroy the 'vm1' VM? [y/N] y
+==> vm1: Forcing shutdown of VM...
+==> vm1: Destroying VM and associated drives...
 ```
 
 That's it. You will have an environment according to your settings. Enjoy!

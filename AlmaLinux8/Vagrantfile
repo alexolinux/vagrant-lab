@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
   cpu = "#{cpu}"
 
   # Number of VMs Lab to create
-  num_vms = 3
+  num_vms = 1
 
   # Loop through the count index
   (1..num_vms).each do |i|
@@ -43,7 +43,7 @@ Vagrant.configure("2") do |config|
         vm.cpus = "#{cpu}"
       end
 
-      vm.vm.synced_folder "/home/#{username}/Public", "/sharing"
+      vm.vm.synced_folder "/share", "/sharing"
 
       vm.vm.provision "shell", inline: <<-SHELL
         # Adding Public DNS Resolvers
@@ -62,9 +62,13 @@ Vagrant.configure("2") do |config|
         chown -R "#{username}:#{username}" "/home/#{username}/.ssh"
       SHELL
 
-      # In case you want to install additional repositories, uncomment the line below
-      vm.vm.provision "shell", path: "scripts/repo.sh"
+      # In case you want to install additional repositories, installations, etc... Uncomment the line below
+      # Vagrant VM Provisioning
+
+      #vm.vm.provision "shell", path: "scripts/repo.sh"
       vm.vm.provision "shell", path: "scripts/provisioner.sh"
+      vm.vm.provision "shell", path: "scripts/salt.sh"
+      #vm.vm.provision "shell", path: "scripts/ansible.sh"
     end
   end
 end

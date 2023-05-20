@@ -8,3 +8,4 @@ PREFIX='vm'         # <-- Replace for your desired VM name index.
 MEMORY='1024'       # <-- Replace for your desired memory ram.
 CPU='1'             # <-- Replace for your desired memory CPU.
 GROUP='MyLabs'      # <-- Replace for your desired VM group.
+HOSTIP=''           # <-- Replace for your IP address (i.e.: 192.168.0.11) of your workstation.
