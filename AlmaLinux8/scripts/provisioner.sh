@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Add your Host Ip/Name below this line to your HOSTIP/HOSTALIAS environment variable.
-HOSTIP=192.168.1.66
+HOSTIP=
 HOSTALIAS='master'
 
 echo -e "1. Appending Hosts\n"
