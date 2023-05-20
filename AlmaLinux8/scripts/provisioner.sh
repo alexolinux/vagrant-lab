@@ -30,5 +30,5 @@ Packages=(
   "jq"
 )
 for package in ${Packages[@]}; do
-    sudo dnf install -y $package
+  sudo dnf install -y $package
 done
