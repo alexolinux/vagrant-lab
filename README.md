@@ -77,7 +77,6 @@ PREFIX='lab'
 MEMORY='1024'
 CPU='1'
 GROUP='MyLabs'
-HOSTIP='192.168.0.9'
 ```
 
 ```shell
@@ -107,8 +106,8 @@ In addition to the existing parameters in the `.env`, there are also the followi
 
 > **Note: If you want to use `provisioner.sh` script, you need to specify your Hostname and IP Address of your workstation:
 ```shell
-HOSTIP=<YourIpHere>
-HOSTALIAS='YourHostnameHere'
+HOSTIP='<YourIpHere>'
+HOSTALIAS='<YourHostnameHere>'
 ```
 
 ## **Let's running!**
