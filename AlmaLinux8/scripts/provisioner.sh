@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Add your Host Ip/Name below this line to your HOSTIP/HOSTALIAS environment variable.
-HOSTIP=192.168.1.66
+HOSTIP=192.168.1.10
 HOSTALIAS='master'
 
 echo -e "1. Appending Hosts\n"
@@ -21,7 +21,6 @@ Packages=(
   "make"
   "automake"
   "autoconf"
-  "glances"
   "net-tools"
   "bind-utils"
   "tcpdump"
