@@ -43,7 +43,8 @@ Vagrant.configure("2") do |config|
         vm.cpus = "#{cpu}"
       end
 
-      vm.vm.synced_folder "/share", "/sharing"
+      # Uncomment the following line if you want to use synced_folder between Host x VMs (Edit  mountpoints)
+      #vm.vm.synced_folder "/share", "/sharing"
 
       vm.vm.provision "shell", inline: <<-SHELL
         # Adding Public DNS Resolvers
