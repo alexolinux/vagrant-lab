@@ -16,6 +16,7 @@ Packages=(
   "vim"
   "curl"
   "git"
+  "mlocate"
   "gcc"
   "gcc-c++"
   "make"
