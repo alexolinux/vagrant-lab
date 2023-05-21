@@ -112,7 +112,29 @@ HOSTALIAS='<YourHostnameHere>'
 
 ## **Let's running!**
 
-Before spinning up this lab, download the Alma Linux 8 box (make sure you are in `AlmaLinux8`):
+### **Option 1: Using Makefile**
+
+1. Check Environment:
+
+```shell
+make test
+```
+
+2. Up/Running:
+
+```shell
+make run
+```
+
+3. Destroy Environment
+
+```shell
+make destroy
+```
+
+### **Option 2: Running manually**
+
+1. Before spinning up this lab, download the Alma Linux 8 box (make sure you are in `AlmaLinux8`):
 
 ```shell
 cd AlmaLinux8
@@ -140,7 +162,7 @@ Enter your choice: 3
 ==> box: Successfully added box 'almalinux/8' (v8.7.20230228) for 'virtualbox'!
 ```
 
-After configuring the `Vagrantfile`, run:
+2. After configuring the `Vagrantfile`, run:
 
 ```shell
 source .env
@@ -202,7 +224,7 @@ vagrant provision
 
 `vagrant provision` will apply this changes on your cluster vms.
 
-If you want to destroy your environment just run:
+3. If you want to destroy your environment just run:
 
 ```shell
 vagrant destroy
