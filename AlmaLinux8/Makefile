@@ -3,7 +3,7 @@ test:
 	bash ./scripts/env_test.sh
 
 run:	
-	vagrant plugin install vagrant-env && \
+	vagrant plugin install vagrant-env vagrant-vbguest && \
 	vagrant box add almalinux/8 --force && \
 	vagrant up --provider virtualbox
 
