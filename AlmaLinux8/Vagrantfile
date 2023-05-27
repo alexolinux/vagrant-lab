@@ -69,7 +69,7 @@ Vagrant.configure("2") do |config|
       vm.vm.provision "shell", path: "scripts/repo.sh"
       vm.vm.provision "shell", path: "scripts/provisioner.sh"
       #vm.vm.provision "shell", path: "scripts/salt.sh"
-      #vm.vm.provision "shell", path: "scripts/ansible.sh"      
+      #vm.vm.provision "shell", path: "scripts/ansible.sh"
     end
   end
 end
