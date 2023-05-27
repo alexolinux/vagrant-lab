@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SOURCE_DIR="/usr/local/src"
+
 Dependencies=(
     "install"
     "libtool"
@@ -12,7 +14,7 @@ Dependencies=(
 
 echo -e "2. Installing XRDP Library Deps: \n"
 
-for package in ${Packages[@]}; do
+for package in ${Dependencies[@]}; do
     sudo dnf install -y $package
 done
 
@@ -24,16 +26,25 @@ else
     echo -e "Compiling XRDP..."
     cd /usr/local/src/
     git clone https://github.com/neutrinolabs/xrdp.git
-    cd xrdp
-    ./configure
-    make && make install
+    cd ${SOURCE_DIR}/xrdp
 
+    source bootstrap
     if [ $? -eq 0 ]; then
-        echo -e "XRDP is compiled successfully"
-        systemctl enable --now xrdp
+        ./configure
+        make && make install
+
+        if [ $? -eq 0 ]; then
+            echo -e "XRDP is compiled successfully"
+            systemctl enable --now xrdp
+        else
+            echo -e "XRDP is not compiled due to some error."
+        fi
     else
-        echo -e "XRDP is not compiled due to some error."
+        echo -e "There was an error while checking dependencies for XRDP"
     fi
 fi
+
+echo -e "Installing extra pakages..."
+sudo dnf install -y xorgxrdp
 
 echo -e "Script finished."

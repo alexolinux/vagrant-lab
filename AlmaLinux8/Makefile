@@ -4,8 +4,8 @@ test:
 
 run:	
 	vagrant plugin install vagrant-env vagrant-vbguest && \
-	vagrant box add almalinux/8 --force && \
-	vagrant up --provider virtualbox
+	vagrant box add almalinux/8 --provider=virtualbox --force && \
+	vagrant up --provider=virtualbox
 
 destroy:
 	vagrant destroy --force
