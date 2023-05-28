@@ -18,7 +18,7 @@ for package in ${Dependencies[@]}; do
     sudo dnf install -y $package
 done
 
-dnf --enablerepo=powertools install -y nasm
+dnf --enablerepo=powertools install -y nasm xorg-x11-apps
 
 if [ $? -ne 0 ]; then
     echo -e "Failure to install some package."
