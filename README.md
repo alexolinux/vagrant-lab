@@ -1,6 +1,7 @@
 # vagrant-lab
-Provision VMs for Development Labs.
+Provision AlmaLinux8 VMs for Development Labs.
 ---
+
 ## **Context**
 
 This repository arose from the need for constant provisioning of virtual machines for studies and development tests.
