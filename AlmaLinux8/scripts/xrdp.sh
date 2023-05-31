@@ -71,6 +71,6 @@ else
 fi
 
 echo -e "Installing extra pakages..."
-sudo dnf install -y xorgxrdp
+sudo dnf install -y xorgxrdp xorg-x11-server-Xorg
 
 echo -e "Script finished."
