@@ -10,6 +10,7 @@ Dependencies=(
     "libX11-devel"
     "libXfixes-devel"
     "libXrandr-devel"
+    "imlib2-devel"
 )
 
 echo -e "2. Installing XRDP Library Deps: \n"
