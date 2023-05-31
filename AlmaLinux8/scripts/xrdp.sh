@@ -32,7 +32,31 @@ else
 
     source bootstrap
     if [ $? -eq 0 ]; then
-        ./configure
+        ./configure \
+        --build=x86_64-redhat-linux-gnu \
+        --host=x86_64-redhat-linux-gnu \
+        --disable-dependency-tracking \
+        --prefix=/usr \
+        --exec-prefix=/usr \
+        --bindir=/usr/bin \
+        --sbindir=/usr/sbin \
+        --sysconfdir=/etc \
+        --datadir=/usr/share \
+        --includedir=/usr/include \
+        --libdir=/usr/lib64 \
+        --libexecdir=/usr/libexec \
+        --localstatedir=/var \
+        --sharedstatedir=/var/lib \
+        --mandir=/usr/share/man \
+        --infodir=/usr/share/info \
+        --enable-fuse \
+        --enable-vsock \
+        --enable-ipv6 \
+        --with-socketdir=/run/xrdp \
+        --with-imlib2 build_alias=x86_64-redhat-linux-gnu host_alias=x86_64-redhat-linux-gnu \
+        --with-cflags="-O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -m64 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection" \
+        --with-ldflags="-Wl,-z,relro -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld"
+        
         make && make install
 
         if [ $? -eq 0 ]; then
