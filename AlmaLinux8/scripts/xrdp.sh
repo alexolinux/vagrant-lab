@@ -3,7 +3,6 @@
 SOURCE_DIR="/usr/local/src"
 
 Dependencies=(
-    "install"
     "libtool"
     "openssl-devel"
     "pam-devel"
