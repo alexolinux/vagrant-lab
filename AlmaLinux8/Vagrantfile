@@ -43,8 +43,11 @@ Vagrant.configure("2") do |config|
         vm.cpus = "#{cpu}"
       end
 
+      # Virtualbox Sync Folders (Disabling Vagrant Default Sync Folder)
+      vm.vm.synced_folder '.', '/vagrant', disabled: true
+      
       # Uncomment the following line if you want to use synced_folder between Host x VMs (Edit  mountpoints)
-      vm.vm.synced_folder "#{home}/Public", "/sharing", "automount": true, "SharedFoldersEnableSymlinksCreate": true
+      #vm.vm.synced_folder "#{home}/Public", "/sharing", "automount": true, "SharedFoldersEnableSymlinksCreate": true
 
       vm.vm.provision "shell", inline: <<-SHELL
         # Adding Public DNS Resolvers
