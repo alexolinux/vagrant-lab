@@ -4,9 +4,9 @@
 #HOSTIP=192.168.1.10
 #HOSTALIAS='master'
 
-echo -e "1. Appending Hosts\n"
+#echo -e "1. Appending Hosts\n"
 # Adding Public DNS Resolvers (Change to your desired list of hosts)
-sudo echo -e "$HOSTIP \t$HOSTALIAS" | sudo tee -a /etc/hosts
+#sudo echo -e "$HOSTIP \t$HOSTALIAS" | sudo tee -a /etc/hosts
 
 echo -e "2. Installing extra packages\n"
 # Extra packages
