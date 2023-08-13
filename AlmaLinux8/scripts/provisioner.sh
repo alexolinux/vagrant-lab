@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Add your Host Ip/Name below this line to your HOSTIP/HOSTALIAS environment variable.
-HOSTIP=192.168.1.10
-HOSTALIAS='master'
+#HOSTIP=192.168.1.10
+#HOSTALIAS='master'
 
 echo -e "1. Appending Hosts\n"
 # Adding Public DNS Resolvers (Change to your desired list of hosts)
