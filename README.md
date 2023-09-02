@@ -61,14 +61,15 @@ cd AlmaLinux8
 vagrant plugin install vagrant-env
 ```
 
-2.2 After that, create the required `.env` file to load parameters that will be used by vagrant provisioning:
+2.2 After that, create the required `.env` file, add your personal configurations to be used by vagrant provisioning:
 
 ```shell
 vim .env
 ```
 
 ```shell
-# .env: 'Variables Environment'
+# .env: Edit these values according to your lab environment.
+# 'Variables Environment'
 PUBKEY='ssh-rsa AAAAC3NzaC1lZDI1NTE5BBADE6VZXR7....'
 IFACE='eth0'
 BASEIP='192.168.0.10'
