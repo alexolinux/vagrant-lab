@@ -90,7 +90,7 @@ vagrant-env enables loading variables from **`.env`** file where we are defining
 
 - IFACE (**interface**): *Interface name of your host for bridge network configuration.*
 - PUBKEY (**pubkey**): *Your public ssh key string that will be added to authorized_keys.*
-- BASEIP (**base_ip**): *Your IP address base index. Change to desired IP index*.
+- BASEIP (**base_ip**): *Your IP address "base index". Change to desired IP index*.
 - NETMASK (**netmask**): *Check your host network configurations for setting your netmask.*
 - GATEWAY (**gateway**): *Default gateway of your local network.*
 - PREFIX (**prefix**): Change it to desired hostname index.
@@ -98,7 +98,7 @@ vagrant-env enables loading variables from **`.env`** file where we are defining
 - CPU (**cpu**): *VMs CPU*
 - GROUP (**group**): *Grouping of VMs (If this group already exists in Virtualbox)*
 
-> *You might copy/paste from `env_template` to `.env` editing your custom values.* 
+> *You might copy/paste from `env_template` to `.env` editing your custom values.*
 
 In addition to the existing parameters in the `.env`, there are also the following parameters inside of `Vagrantfile`:
 - **num_vms**:  *Number of VMs to be created.*
@@ -106,7 +106,9 @@ In addition to the existing parameters in the `.env`, there are also the followi
 - **synced_folder**: *Change to your desired source/destination folders or comment if you don't want to use it (optional)*.
   * *If you want to use mountpoint with `sync_folder` make sure the directory exists on your host/workstation.*
 
-> **Note: If you want to use `provisioner.sh` script, you need to specify your Hostname and IP Address of your workstation:
+> **Note1:** BASEIP variable works with the VM Count Index +1. It means if you configure `BASEIP='192.168.0.10'` the first VM will have the IP address `192.168.0.11'` assigned.
+
+> **Note2:** If you want to use `provisioner.sh` script, you need to specify your Hostname and IP Address of your workstation:
 ```shell
 HOSTIP='<YourIpHere>'
 HOSTALIAS='<YourHostnameHere>'
