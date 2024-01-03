@@ -240,6 +240,9 @@ vagrant destroy
 ==> vm1: Destroying VM and associated drives...
 ```
 
+*Added an Extra Kali vagrant box to the repository. Follow the same instructions if you wish to boot this distro instead.*
+
+
 That's it. You will have an environment according to your settings. Enjoy!
 
 ---
