@@ -1,15 +1,29 @@
 # -*- mode: ruby -*-
-#
-# Vagrantfile - One development machine to rule them all.
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "almalinux/8"
+
+  # Vagrant Addition Guest Plugin Configurations  --------------------
+  # https://github.com/dotless-de/vagrant-vbguest --------------------
+  # set auto_update to false, if you do NOT want to check the correct 
+  # Additions version when booting this machine
+  config.vbguest.auto_update = false  
+  # Do NOT download the iso file from a webserver
+  config.vbguest.no_remote = true
+
+  # Enable Environment Plugin
   config.env.enable
+  
+  # Vagrant Box Distribution
+  distro = ENV['DIST']
+  version = ENV['VER']
+
+  config.vm.box = "#{distro}/#{version}"
+
+  # Variables for VM Settings
+  memory = "#{memory}"
+  cpu = "#{cpu}"
 
   # Variables Environment
-  username = ENV['USER']
-  home = ENV['HOME']
-  pubkey = ENV['PUBKEY']
   interface = ENV['IFACE']
   base_ip = ENV['BASEIP']
   netmask = ENV['NETMASK']
@@ -19,9 +33,10 @@ Vagrant.configure("2") do |config|
   cpu = ENV['CPU']
   group = ENV['GROUP']
 
-  # Variables for VM Settings
-  memory = "#{memory}"
-  cpu = "#{cpu}"
+  # User Variables
+  username = ENV['USER']
+  home = ENV['HOME']
+  pubkey = ENV['PUBKEY']
 
   # Number of VMs Lab to create
   num_vms = 1

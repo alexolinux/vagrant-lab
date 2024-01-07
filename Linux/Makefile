@@ -1,13 +1,18 @@
+include .env
+
 test:
 	@echo "Running tests..."
 	bash ./scripts/env_test.sh
 
 run:	
 	vagrant plugin install vagrant-env vagrant-vbguest && \
-	vagrant box add kalilinux/rolling --provider=virtualbox --force && \
+	vagrant box add $(DIST)/$(VER) --provider=virtualbox --force && \
 	vagrant up --provider=virtualbox
+
+update:
+	vagrant provision
 
 destroy:
 	vagrant destroy --force
 
-.PHONY: test, run, destroy
+.PHONY: test, run, update, destroy
