@@ -94,23 +94,6 @@ cd Linux
 cp env_template .env && vim .env
 ```
 
-### env_template
-
-### MakeFile Variables
-DIST        > Makefile Linux Distro.
-VER         > Makefile Linux Distro Release Version.
-
-### Variables Environment
-IFACE       > Add your Host Interface Device
-BASEIP      > Add your desired IP address index
-NETMASK     > Add the netmask based on your local network configuration
-GATEWAY     > Add the Default Gateway based on your local network configuration
-PREFIX      > Replace for your desired VM name index.
-MEMORY      > Replace for your desired memory ram.
-CPU         > Replace for your desired memory CPU.
-GROUP       > Replace for your desired VM group.
-PUBKEY      > Add your SSH Pub key hash
-
 ```shell
 # Example
 DIST='centos'
