@@ -52,8 +52,8 @@ Vagrant.configure("2") do |config|
       vm.vm.provision "shell", inline: <<-SHELL
         # Adding Public DNS Resolvers
         echo "nameserver 1.1.1.1" | sudo tee -a /etc/resolv.conf
+        echo "nameserver 208.67.222.222" | sudo tee -a /etc/resolv.conf
         echo "nameserver 8.8.8.8" | sudo tee -a /etc/resolv.conf
-        echo "nameserver 8.8.4.4" | sudo tee -a /etc/resolv.conf
         # Configure Default Network Gateway
         ip route add default via "#{gateway}"
         # Create Sysadmin/DevOps 'sudo' User plus accessing mechanism/permissions
