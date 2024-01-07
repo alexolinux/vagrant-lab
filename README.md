@@ -91,18 +91,16 @@ cd Linux
 ```
 
 ```shell
-cp env_template .env
-vim .env
+cp env_template .env && vim .env
 ```
 
-```shell
-# env_template
+### env_template
 
-# MakeFile Variables
+### MakeFile Variables
 DIST        > Makefile Linux Distro.
 VER         > Makefile Linux Distro Release Version.
 
-# Variables Environment
+### Variables Environment
 IFACE       > Add your Host Interface Device
 BASEIP      > Add your desired IP address index
 NETMASK     > Add the netmask based on your local network configuration
@@ -112,7 +110,6 @@ MEMORY      > Replace for your desired memory ram.
 CPU         > Replace for your desired memory CPU.
 GROUP       > Replace for your desired VM group.
 PUBKEY      > Add your SSH Pub key hash
-```
 
 ```shell
 # Example
@@ -129,10 +126,12 @@ CPU='1'
 GROUP='MyLabs'
 ```
 
+### Save and exit:
 ```shell
-# Save and exit:
 :wq
+```
 
+```shell
 # Activate your .env
 source .env
 ```
