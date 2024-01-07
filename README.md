@@ -32,7 +32,7 @@ First of all, it is required the [vagrant binary package](https://developer.hash
 
 ### 2. **Vagrant Env** plugin
 
-In order to make this environment shareable, the implementation of variables using the [**vagrant-env**](https://github.com/gosuri/vagrant-env) **plugin** shall to be used.
+To make this environment shareable, the implementation of variables using the [**vagrant-env**](https://github.com/gosuri/vagrant-env) **plugin** shall be used.
 
 ### 3. **Oracle Virtualbox**
 
@@ -55,7 +55,7 @@ This project was created to ensure compatibility with various Linux flavors. Cho
 ```
 
 - For provisioning, the same user used on the host will be created, adding it with sudo permissions.
-- In this project, a mount point is being created between "Host & VMS". *It is optional (fell free to comment this line if you don't want to use it)*.
+- In this project, a mount point is being created between "Host & VMS". *It is optional (feel free to comment on this line if you don't want to use it)*.
 - Configure shell provisioning according to your needs.
 
 ## **Setting up this Project**
@@ -77,12 +77,12 @@ git clone https://github.com/alexmbarbosa/vagrant-lab.git
 - BASEIP (**base_ip**): *Your IP address "base index". Change to desired IP index*.
 - NETMASK (**netmask**): *Check your host network configurations for setting your netmask.*
 - GATEWAY (**gateway**): *Default gateway of your local network.*
-- PREFIX (**prefix**): Change it to desired hostname index.
+- PREFIX (**prefix**): Change it to the desired hostname index.
 - MEMORY (**memory**): *VMs memory*
 - CPU (**cpu**): *VMs CPU*
 - GROUP (**group**): *Grouping of VMs (If this group already exists in Virtualbox)*
 
-Create the required `.env` according to the `env_template`, add your personal configurations to be used by vagrant provisioning:
+Create the required `.env` according to the `env_template`, and add your configurations to be used by vagrant:
 
 Go to `Linux` folder:
 
@@ -144,18 +144,19 @@ In addition to the existing parameters in the `.env`, there are also the followi
 - **synced_folder**: *Change to your desired source/destination folders or comment if you don't want to use it (optional)*.
   - *If you want to use mountpoint with `sync_folder` make sure the directory exists on your host/workstation.*
 
-> **Note1:** *BASEIP variable works with the VM Count Index +1. It means if you configure `BASEIP='192.168.0.10'` the first VM will have the IP address `192.168.0.11'` assigned.*
-> **Note2:** *If you want to use `provisioner.sh` script, you need to specify your Hostname and IP Address of your workstation:*
+> **Notes:**
+> * *BASEIP variable works with the VM Count Index +1. It means if you configure `BASEIP='192.168.0.10'` the first VM will have the IP address `192.168.0.11'` assigned.*
+> * *If you want to use `provisioner.sh` script, you need to specify your Hostname and IP Address of your workstation:*
 
 ```shell
 HOSTIP='<YourIpHere>'
 HOSTALIAS='<YourHostnameHere>'
 ```
 
-## **Let's running!**
+## **Let's run!**
 
 ### **Makefile**
-A **Makefile** was implemented, becoming the startUP process simpler.
+A **Makefile** was implemented, making the startUP process simpler.
 
 1) Check Environment:
 
