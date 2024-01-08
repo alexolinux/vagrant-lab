@@ -25,6 +25,7 @@ Vagrant.configure("2") do |config|
 
   # Variables Environment
   interface = ENV['IFACE']
+  network = ENV['NETWORK']
   base_ip = ENV['BASEIP']
   netmask = ENV['NETMASK']
   gateway = ENV['GATEWAY']
@@ -58,8 +59,8 @@ Vagrant.configure("2") do |config|
         vm.cpus = "#{cpu}"
       end
 
-      vm.vm.provision "shell", inline: <<-SHELL
-        # Create Linux "Sudo" User
+      # Create Linux "Sudo" User
+      vm.vm.provision "shell", inline: <<-SHELL        
         useradd -m -s /bin/bash -G vagrant "#{username}"
         echo "#{username}     ALL=(ALL)     NOPASSWD: ALL" | sudo tee -a /etc/sudoers.d/vagrant
         mkdir -p "/home/#{username}/.ssh"
@@ -69,14 +70,17 @@ Vagrant.configure("2") do |config|
         chown -R "#{username}:#{username}" "/home/#{username}/.ssh"
       SHELL
 
-      vm.vm.provision "shell", inline: <<-SHELL
-        # Adding Public DNS Resolvers
+      # Adding Public DNS Resolvers
+      vm.vm.provision "shell", inline: <<-SHELL        
         echo "nameserver 1.1.1.1" | sudo tee /etc/resolv.conf
         echo "nameserver 208.67.222.222" | sudo tee -a /etc/resolv.conf
         echo "nameserver 8.8.8.8" | sudo tee -a /etc/resolv.conf
-        # Configure Default Network Gateway
-        ip route add default via "#{gateway}"
       SHELL
+
+      # Adding Bridge Route Gateway
+      vm.vm.provision "shell", run: "always", inline:
+        #"ip route add default via #{gateway} || true"
+        "ip route add #{network} via #{gateway}"
 
       # In case you want to install additional repositories, installations, etc... Uncomment the line below
       # Vagrant VM Provisioning

@@ -5,7 +5,7 @@ test:
 	bash ./scripts/env_test.sh
 
 run:	
-	vagrant plugin install vagrant-env vagrant-vbguest && \
+	vagrant plugin install vagrant-env vagrant-reload vagrant-vbguest && \
 	vagrant box add $(DIST)/$(VER) --provider=virtualbox --force && \
 	vagrant up --provider=virtualbox
 

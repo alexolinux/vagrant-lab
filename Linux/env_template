@@ -4,6 +4,7 @@ VER=""              # Makefile Linux Distro Release Version.  Example: VER=9
 
 # Variables Environment
 IFACE=""            # <-- Add your Host Interface Device (i.e.: eth0)
+NETWORK=""          # <-- Add Network IP address
 BASEIP=""           # <-- Add your desired IP address index (i.e.: 192.168.0.10)
 NETMASK=""          # <-- Add the netmask based on your local network configuration (i.e.: 255.255.255.0)
 GATEWAY=""          # <-- Add the Default Gateway based on your local network configuration (i.e.: 192.168.0.1)
