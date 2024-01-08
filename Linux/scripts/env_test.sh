@@ -11,8 +11,13 @@ RESULT=true
 # Check if .env exists
 if [ -f "./.env" ]; then
     # Read .env line by line and check each variable
-    while read -r line 
+    while IFS= read -r line 
     do
+        # Skip processing if the line is empty
+        if [ -z "$line" ]; then
+            continue
+        fi
+
         # Split variable NAME and VALUE, and store each VALUE in a variable
         NAME=$(echo "$line" | cut -d '=' -f 1)
         VALUE=$(echo "$line" | cut -d '=' -f 2)
@@ -29,4 +34,4 @@ if [ -f "./.env" ]; then
     done < ./.env
 fi
 
-echo -e "\n$RESULT"
+echo -e "\n$RESULT%"
