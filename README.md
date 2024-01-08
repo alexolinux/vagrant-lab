@@ -55,7 +55,7 @@ This project was created to ensure compatibility with various Linux flavors. Cho
 ```
 
 - For provisioning, the same user used on the host will be created, adding it with sudo permissions.
-- In this project, a mount point is being created between "Host & VMS". *It is optional (feel free to comment on this line if you don't want to use it)*.
+- In this project, a mount point might be created between "Host & VMS" (check mount point options in `Vagrantfile`). *It is optional (feel free to comment on this line if you don't want to use it)*.
 - Configure shell provisioning according to your needs.
 
 ## **Setting up this Project**
