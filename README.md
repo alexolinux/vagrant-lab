@@ -131,11 +131,6 @@ In addition to the existing parameters in the `.env`, there are also the followi
 > **Notes:**
 > * *BASEIP variable works with the VM Count Index +1. It means if you configure `BASEIP='192.168.0.10'` the first VM will have the IP address `192.168.0.11'` assigned.*
 
-```shell
-HOSTIP='<YourIpHere>'
-HOSTALIAS='<YourHostnameHere>'
-```
-
 ## **Let's run!**
 
 ### **Makefile**
