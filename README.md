@@ -134,7 +134,7 @@ In addition to the existing parameters in the `.env`, there are also the followi
 ## **Let's run!**
 
 ### **Makefile**
-A **Makefile** was implemented, making the startUP process simpler.
+A **Makefile** was implemented, making the Vagrant process simpler.
 
 1) Check Environment:
 
