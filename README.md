@@ -73,7 +73,7 @@ git clone https://github.com/alexmbarbosa/vagrant-lab.git
 - DIST (**distro**): *Linux Distribution.*
 - VER (**version**): *Linux Distro Release Version.*
 - IFACE (**interface**): *Interface name of your host for bridge network configuration.*
-- PUBKEY (**pubkey**): *Your public ssh key string that will be added to authorized_keys.*
+- NETWORK (**network**): *Network IP address.*
 - BASEIP (**base_ip**): *Your IP address "base index". Change to desired IP index*.
 - NETMASK (**netmask**): *Check your host network configurations for setting your netmask.*
 - GATEWAY (**gateway**): *Default gateway of your local network.*
@@ -81,6 +81,7 @@ git clone https://github.com/alexmbarbosa/vagrant-lab.git
 - MEMORY (**memory**): *VMs memory*
 - CPU (**cpu**): *VMs CPU*
 - GROUP (**group**): *Grouping of VMs (If this group already exists in Virtualbox)*
+- PUBKEY (**pubkey**): *Your public ssh key string that will be added to authorized_keys.*
 
 Create the required `.env` according to the `env_template`, and add your configurations to be used by vagrant:
 
@@ -100,6 +101,7 @@ DIST='centos'
 VER='7'
 PUBKEY='ssh-rsa AAAAC3NzaC1lZDI1NTE5BBADE6VZXR7....'
 IFACE='eth0'
+NETWORK="192.168.0.0"
 BASEIP='192.168.0.10'
 NETMASK='255.255.255.0'
 GATEWAY='192.168.0.1'

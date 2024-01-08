@@ -80,12 +80,12 @@ Vagrant.configure("2") do |config|
       # Adding Bridge Route Gateway
       vm.vm.provision "shell", run: "always", inline:
         #"ip route add default via #{gateway} || true"
-        "ip route add #{network} via #{gateway}"
+        "ip route add #{network} via #{gateway} || true"
 
       # In case you want to install additional repositories, installations, etc... Uncomment the line below
       # Vagrant VM Provisioning
 
-      #vm.vm.provision "shell", path: "scripts/repo.sh"
+      vm.vm.provision "shell", path: "scripts/repo.sh"
       #vm.vm.provision "shell", path: "scripts/provisioner.sh"
 
       # Virtualbox Sync Folders
