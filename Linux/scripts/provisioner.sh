@@ -29,6 +29,7 @@ Packages=(
   "nc"
   "iperf3"
   "jq"
+  "util-linux-user"
 )
 for package in ${Packages[@]}; do
   sudo dnf install -y $package
