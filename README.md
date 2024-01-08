@@ -42,7 +42,7 @@ If you don't have Oracle Virtualbox installed, access this [link](https://www.vi
 
 This project was created to ensure compatibility with various Linux flavors. Choose and specify your desired distro/version by accessing **[Vagrant Boxes](https://app.vagrantup.com/)**.
 
-- The network is configured for use in bridge mode. The host interface will be requested during the provisioning steps. Specify it accordingly:
+- The network is configured for use in bridge mode. Depending on the Host and Distro Linux, the host interface might be requested during the provisioning steps. Specify it accordingly:
 
 ```shell
 ==> vm: Available bridged network interfaces:
