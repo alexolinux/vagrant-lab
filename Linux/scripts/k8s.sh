@@ -1,13 +1,24 @@
 #!/bin/bash
 
-# Author: alexmbarbosa
+# -- ------------------------------------------------------------------------------------------------
+# Author: alexolinux
 # Purpose: Script created for installing a kubernetes environment on Linux platforms based on RHEL.
 # This script allows you to install and configure a Kubernetes cluster with control-plane and nodes.
+# -- ------------------------------------------------------------------------------------------------
+# https://gist.github.com/ed80cb54d6017e92ff8d791882f0de84.git
+# -- ------------------------------------------------------------------------------------------------
+# https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+# https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/
+# -- ------------------------------------------------------------------------------------------------
 
-# Required Variables for control-plane
+# Usage: ./k8s.sh (control/plane || node)
+
+# Required Interface as Variable (i.e.: eth0, wlan0, etc)
 IFACE=""
 
 # Required Variables for node
+# CONTROL_PLANE should have the Control Plane IP Address such as PORT (usually the default 6443).
+# Both TOKEN and HASH values are provided after completed the Control Plane installation process.
 CONTROL_PLANE=""
 PORT=6443
 TOKEN=""
@@ -45,20 +56,24 @@ EOF
 }
 
 # Kubernetes packages installation 
-#! (PLEASE, CHECK THE REPO RELEASE VERSION!) <<<<<<<<<
+# (PLEASE, CHECK THE REPO RELEASE VERSION!) <<<<<<<<<
+# https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+
+# Change the Kubernetes Version if needed.
+KUBE_VERSION="1.29"
 
 install_k8s_packages() {
     echo "Installing required Kubernetes packages..."
     sudo tee /etc/yum.repos.d/kubernetes.repo <<EOF
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/repodata/repomd.xml.key
+exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
 EOF
-    sudo dnf install -y kubelet kubeadm kubectl
+    sudo dnf install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
     if [ $? -ne 0 ]; then
         echo "Error: Unable to install Kubernetes packages."
         exit 1
@@ -86,6 +101,7 @@ configure_container_runtime() {
 }
 
 # Initializing control-plane
+
 initialize_control_plane() {
     echo "Initializing Kubernetes control plane..."
     
@@ -93,9 +109,11 @@ initialize_control_plane() {
     #sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
     if [ ! -z "$IP" ]; then
-        sudo kubeadm init --pod-network-cidr=10.10.0.0/16 --apiserver-advertise-address=${IP}
+        ## Use the argument "--apiserver-advertise-address" if you have more than 1 Network Interface.
+        #sudo kubeadm init --pod-network-cidr=10.10.0.0/16 --apiserver-advertise-address=${IP}
+    sudo kubeadm init --pod-network-cidr=10.10.0.0/16 --kubernetes-version $KUBE_VERSION --apiserver-advertise-address=${IP}
     else
-        echo "Error: Check Shellscript variables: IFACE/IP."
+        echo "Error: Check Shellscript variables: IFACE/IP/KUBEVERSION."
         exit 1
     fi
 
@@ -128,7 +146,7 @@ install_network_plugin() {
 join_node() {
     echo "Joining Kubernetes node to the cluster..."
     sudo kubeadm join $CONTROL_PLANE:$PORT --token $TOKEN \
-	--discovery-token-ca-cert-hash $HASH
+    --discovery-token-ca-cert-hash $HASH
 
     if [ $? -ne 0 ]; then
         echo "Error: Unable to join Kubernetes node to the cluster."
