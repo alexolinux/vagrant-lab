@@ -27,6 +27,7 @@ Packages=(
   "tcpdump"
   "nmap"
   "nc"
+  "lsof"
   "iperf3"
   "jq"
   "util-linux-user"
