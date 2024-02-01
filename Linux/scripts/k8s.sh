@@ -60,7 +60,7 @@ EOF
 # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
 
 # Change the Kubernetes Version if needed.
-KUBE_VERSION="1.29"
+KUBE_VERSION="1.29.0"
 
 install_k8s_packages() {
     echo "Installing required Kubernetes packages..."
