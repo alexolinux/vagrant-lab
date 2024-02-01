@@ -4,7 +4,7 @@ test:
 	@echo "Running tests..."
 	bash ./scripts/env_test.sh
 
-run:	
+start:	
 	vagrant plugin install vagrant-env vagrant-vbguest && \
 	vagrant box add $(DIST)/$(VER) --provider=virtualbox --force && \
 	vagrant up --provider=virtualbox
@@ -15,4 +15,4 @@ update:
 destroy:
 	vagrant destroy --force
 
-.PHONY: test, run, update, destroy
+.PHONY: test, start, update, destroy

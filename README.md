@@ -145,7 +145,7 @@ make test
 2) Provisioning VMs:
 
 ```shell
-make run
+make start
 ```
 
 3) Modifying VMs:
