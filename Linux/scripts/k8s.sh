@@ -24,6 +24,17 @@ PORT=6443
 TOKEN=""
 HASH=""
 
+# Kubernetes packages installation 
+# (PLEASE, CHECK THE REPO RELEASE VERSION!) <<<<<<<<<
+# https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+
+# Change the Kubernetes Version if needed.
+KUBE_VERSION="1.29.0"
+
+# docker-compose release version
+# https://github.com/docker/compose/releases
+DC_VER="v2.24.5"
+
 # K8s Type: control-plane|node
 usage() {
     echo "Usage: $0 <control-plane|node>"
@@ -55,13 +66,6 @@ EOF
     sudo sysctl --system
 }
 
-# Kubernetes packages installation 
-# (PLEASE, CHECK THE REPO RELEASE VERSION!) <<<<<<<<<
-# https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
-
-# Change the Kubernetes Version if needed.
-KUBE_VERSION="1.29.0"
-
 install_k8s_packages() {
     echo "Installing required Kubernetes packages..."
     sudo tee /etc/yum.repos.d/kubernetes.repo <<EOF
@@ -73,7 +77,7 @@ gpgcheck=1
 gpgkey=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/repodata/repomd.xml.key
 exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
 EOF
-    sudo dnf install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+    sudo dnf install -y net-tools iproute-tc kubelet-${KUBE_VERSION} kubeadm-${KUBE_VERSION} kubectl-${KUBE_VERSION} --disableexcludes=kubernetes
     if [ $? -ne 0 ]; then
         echo "Error: Unable to install Kubernetes packages."
         exit 1
@@ -100,6 +104,42 @@ configure_container_runtime() {
     fi
 }
 
+# Optional: docker installation
+docker_install() {
+
+    echo "Installing docker CE..."
+    
+    # Check if docker repo
+    if [ ! sudo dnf repolist | grep -q "docker-ce" ]; then
+        echo "Adding Docker repository..."
+        sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+    else
+        echo "Docker repository already added."
+    fi
+
+    sudo dnf install -y docker-ce
+    sudo usermod -aG docker $USER
+    
+    echo "Installing docker-compose..."
+    curl -fsSL https://github.com/docker/compose/releases/download/${DC_VER}/docker-compose-linux-x86_64 -o docker-compose && \
+    chmod 750 docker-compose && \
+    sudo mv docker-compose /usr/local/bin/
+
+    if [ -z "$(command -v docker-compose)" ]; then
+        echo "Error: Failure to install docker-compose."
+        exit 1
+    else
+        echo "docker-compose installed!"
+    fi
+
+    sudo systemctl enable --now docker
+
+    if [ $? -ne 0 ]; then
+        echo "Error: Unable to start docker service."
+        exit 1
+    fi
+}
+
 # Initializing control-plane
 
 initialize_control_plane() {
@@ -111,7 +151,7 @@ initialize_control_plane() {
     if [ ! -z "$IP" ]; then
         ## Use the argument "--apiserver-advertise-address" if you have more than 1 Network Interface.
         #sudo kubeadm init --pod-network-cidr=10.10.0.0/16 --apiserver-advertise-address=${IP}
-    sudo kubeadm init --pod-network-cidr=10.10.0.0/16 --kubernetes-version $KUBE_VERSION --apiserver-advertise-address=${IP}
+    sudo kubeadm init --pod-network-cidr=10.10.0.0/16 --kubernetes-version ${KUBE_VERSION} --apiserver-advertise-address=${IP}
     else
         echo "Error: Check Shellscript variables: IFACE/IP/KUBEVERSION."
         exit 1
@@ -168,6 +208,7 @@ case $1 in
         prereq_params
         install_k8s_packages
         configure_container_runtime
+        docker_install
         initialize_control_plane
         kube_user_config
         install_network_plugin
@@ -177,6 +218,7 @@ case $1 in
         prereq_params
         install_k8s_packages
         configure_container_runtime
+        docker_install
         join_node
         ;;
     *)
