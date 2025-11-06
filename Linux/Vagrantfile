@@ -10,8 +10,17 @@ Vagrant.configure("2") do |config|
   # Do NOT download the iso file from a webserver
   config.vbguest.no_remote = true
 
-  # Enable Environment Plugin
-  config.env.enable
+  # Enable Environment Plugin (optional)
+  # Some versions of the vagrant-env plugin (or its dotenv dependency) can
+  # trigger an early fatal error with newer Ruby/Vagrant combinations
+  # (e.g. undefined method `exists?'). Guard the call so the Vagrantfile
+  # can still load and use ENV variables directly when the plugin fails.
+  begin
+    config.env.enable
+  rescue Exception => e
+    # Print a warning but continue loading the Vagrantfile.
+    puts "Warning: vagrant-env plugin failed to enable (#{e.class}): #{e.message}"
+  end
   
   # Vagrant Box Distribution
   distro = ENV['DIST']
@@ -38,6 +47,24 @@ Vagrant.configure("2") do |config|
   username = ENV['USER']
   home = ENV['HOME']
   pubkey = ENV['PUBKEY']
+
+  # Validate required environment variables (helpful when vagrant-env/dotenv fails)
+  required_envs = %w[DIST VER IFACE NETWORK BASEIP NETMASK GATEWAY PREFIX MEMORY CPU GROUP USER HOME PUBKEY]
+  missing = required_envs.select { |k| ENV[k].nil? || ENV[k].to_s.strip == "" }
+  if !missing.empty?
+    abort <<~MSG
+      Missing required environment variables: #{missing.join(', ')}
+
+      The Vagrantfile expects these variables to be set (normally via a .env file
+      loaded by the vagrant-env plugin). The plugin failed to enable above, so
+      please either:
+        1) Export the variables in your shell (e.g. export BASEIP=192.168.56.100 ...), or
+        2) Create a .env file and fix or update the vagrant-env/dotenv plugin, or
+        3) Edit the Vagrantfile to add defaults for your environment.
+
+      Aborting to avoid an unclear error (like `undefined method 'split'`).
+    MSG
+  end
 
   # Number of VMs Lab to create
   num_vms = 1
@@ -74,7 +101,7 @@ Vagrant.configure("2") do |config|
       vm.vm.provision "shell", inline: <<-SHELL        
         echo "nameserver 1.1.1.1" | sudo tee /etc/resolv.conf
         echo "nameserver 208.67.222.222" | sudo tee -a /etc/resolv.conf
-        echo "nameserver 8.8.8.8" | sudo tee -a /etc/resolv.conf
+        echo "nameserver 9.9.9.9" | sudo tee -a /etc/resolv.conf
       SHELL
 
       # Adding Bridge Route Gateway
