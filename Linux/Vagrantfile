@@ -15,11 +15,16 @@ Vagrant.configure("2") do |config|
   # trigger an early fatal error with newer Ruby/Vagrant combinations
   # (e.g. undefined method `exists?'). Guard the call so the Vagrantfile
   # can still load and use ENV variables directly when the plugin fails.
-  begin
-    config.env.enable
-  rescue Exception => e
-    # Print a warning but continue loading the Vagrantfile.
-    puts "Warning: vagrant-env plugin failed to enable (#{e.class}): #{e.message}"
+  
+  # Manually load .env file
+  if File.exist?('.env')
+    File.readlines('.env').each do |line|
+      line.strip!
+      if line.length > 0 && !line.start_with?('#')
+        key, value = line.split('=', 2)
+        ENV[key] = value.gsub(/"/, '') if key && value
+      end
+    end
   end
   
   # Vagrant Box Distribution

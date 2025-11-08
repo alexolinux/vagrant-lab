@@ -1,6 +1,6 @@
 # MakeFile Variables
 DIST=""             # Makefile Linux Distro.                  Example: DIST="almalinux"
-VER=""              # Makefile Linux Distro Release Version.  Example: VER=9
+VER=""              # Makefile Linux Distro Release Version.  Example: VER=10-x86_64_v2
 
 # Variables Environment
 IFACE=""            # <-- Add your Host Interface Device (i.e.: eth0)
